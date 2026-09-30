@@ -11,7 +11,7 @@ npm run dev
 
 - **Admin Panel URL:** `http://localhost:5174`
 - **Customer Storefront URL:** `http://localhost:5173`
-- **Default Security PIN:** `123456` (Configurable in `.env`)
+- **🔐 Custom Security PIN:** Configure your own custom 6-digit access PIN in `.env` (`ADMIN_PIN=your_custom_pin`) as per your security preference.
 
 ---
 
