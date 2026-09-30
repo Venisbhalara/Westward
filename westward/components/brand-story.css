@@ -1,0 +1,470 @@
+/* ==========================================================================
+   WESTWARD ATELIER & BRAND STORY — COMPACT & STRUCTURED LUXURY ARCHITECTURE
+   ========================================================================== */
+
+.brand-story-luxury {
+  position: relative;
+  padding: 44px 20px 52px;
+  background: linear-gradient(180deg, #f7f4ed 0%, #f4efe4 50%, #f7f4ed 100%);
+  border-top: 1px solid rgba(136, 122, 86, 0.2);
+  border-bottom: 1px solid rgba(136, 122, 86, 0.2);
+  overflow: hidden;
+}
+
+/* Layer 1: Outer Architectural Frame */
+.story-frame-outer {
+  max-width: 980px;
+  margin: 0 auto;
+  background: #fffdf9;
+  border: 1px solid rgba(136, 122, 86, 0.26);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow:
+    0 16px 40px -12px rgba(41, 39, 32, 0.06),
+    0 2px 6px rgba(41, 39, 32, 0.02);
+  position: relative;
+}
+
+/* Layer 2: Inner Atelier Canvas */
+.story-frame-inner {
+  border: 1px solid rgba(136, 122, 86, 0.16);
+  border-radius: 10px;
+  padding: 34px 28px 36px;
+  background: linear-gradient(180deg, #fffdfa 0%, #faf6ee 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Heritage Badge Header with Flanking Lines */
+.story-badge-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.story-rule-line {
+  flex: 1;
+  max-width: 70px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(136, 122, 86, 0.35), transparent);
+}
+
+.story-crest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 13px;
+  border-radius: 999px;
+  background: rgba(136, 122, 86, 0.07);
+  border: 1px solid rgba(136, 122, 86, 0.25);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #726244;
+  text-transform: uppercase;
+}
+
+.story-crest-badge .crest-icon {
+  color: #887a56;
+  width: 12px;
+  height: 12px;
+}
+
+/* Editorial Title & Lead Manifesto */
+.story-hero-content {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 26px;
+}
+
+.story-eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #887a56;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.story-main-title {
+  font-family: Georgia, Garamond, serif;
+  font-size: clamp(22px, 2.8vw, 32px);
+  font-weight: 400;
+  line-height: 1.18;
+  color: #292720;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
+}
+
+.story-main-title i {
+  font-style: italic;
+  color: #6e5f40;
+}
+
+.story-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 auto 14px;
+}
+
+.story-ornament .diamond-bullet {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: #887a56;
+}
+
+/* Layer 3: Floating Lead Quote Card (Compact) */
+.story-lead-quote {
+  font-family: Georgia, Garamond, serif;
+  font-size: 14.5px;
+  line-height: 1.62;
+  color: #49453b;
+  font-style: italic;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(136, 122, 86, 0.2);
+  border-left: 3px solid #887a56;
+  border-radius: 6px;
+  padding: 13px 20px;
+  box-shadow: 0 3px 12px rgba(41, 39, 32, 0.02);
+  text-align: center;
+  max-width: 640px;
+}
+
+/* Layer 4: Editorial Duo Grid (Archival Plates - Compact Height) */
+.story-editorial-duo {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.story-plate-card {
+  background: #ffffff;
+  border: 1px solid rgba(136, 122, 86, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(41, 39, 32, 0.03);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.story-plate-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(41, 39, 32, 0.07);
+  border-color: rgba(136, 122, 86, 0.4);
+}
+
+.plate-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+  background: #e8e2d5;
+}
+
+.plate-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Specific focal alignments to perfectly frame subjects without cutting off heads or bodies */
+.plate-img-first {
+  object-position: center 82% !important;
+}
+
+.plate-img-second {
+  object-position: center 16% !important;
+}
+
+.story-plate-card:hover .plate-img-wrapper img {
+  transform: scale(1.04);
+}
+
+.plate-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(255, 253, 248, 0.94);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(136, 122, 86, 0.28);
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #524b3a;
+  text-transform: uppercase;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.plate-caption {
+  padding: 14px 18px 16px;
+  background: #ffffff;
+}
+
+.plate-caption h4 {
+  font-family: Georgia, Garamond, serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #292720;
+  margin: 0 0 5px;
+}
+
+.plate-caption p {
+  font-size: 12.5px;
+  line-height: 1.52;
+  color: #635f54;
+  margin: 0;
+}
+
+/* Layer 5: Structured 3 Pillars of Craftsmanship (Compact) */
+.story-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.story-pillar-item {
+  background: #ffffff;
+  border: 1px solid rgba(136, 122, 86, 0.18);
+  border-radius: 10px;
+  padding: 18px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 3px 12px rgba(41, 39, 32, 0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.story-pillar-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(41, 39, 32, 0.06);
+  border-color: rgba(136, 122, 86, 0.38);
+}
+
+.pillar-num {
+  font-family: Georgia, Garamond, serif;
+  font-size: 21px;
+  font-weight: 700;
+  color: #887a56;
+  opacity: 0.85;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.pillar-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.pillar-icon {
+  color: #887a56;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+}
+
+.pillar-head h3 {
+  font-family: Georgia, Garamond, serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #292720;
+  margin: 0;
+}
+
+.story-pillar-item p {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #635f54;
+  margin: 0;
+}
+
+/* Layer 6: Atelier Sign-Off & Action Tray (Compact) */
+.story-manifesto-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 22px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(136, 122, 86, 0.2);
+  border-radius: 10px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.story-quote-box {
+  flex: 1;
+  min-width: 240px;
+}
+
+.manifesto-signoff {
+  font-family: Georgia, Garamond, serif;
+  font-size: 14px;
+  font-style: italic;
+  color: #292720;
+  margin: 0 0 4px;
+}
+
+.atelier-stamp {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #887a56;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.story-cta-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.story-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #302f26 !important;
+  color: #fffdf8 !important;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 3px 10px rgba(48, 47, 38, 0.18);
+}
+
+.story-btn-primary:hover {
+  background: #1c1b16 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(48, 47, 38, 0.25);
+  color: #fffdf8 !important;
+}
+
+.story-btn-primary svg {
+  width: 14px;
+  height: 14px;
+}
+
+.story-link-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(136, 122, 86, 0.07);
+  color: #49453b;
+  border: 1px solid rgba(136, 122, 86, 0.24);
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.story-link-secondary:hover {
+  background: rgba(136, 122, 86, 0.14);
+  color: #292720;
+  border-color: rgba(136, 122, 86, 0.4);
+  transform: translateY(-1px);
+}
+
+.story-link-secondary svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Layer 7: Background Watermark Crest (Discreet) */
+.story-crest-watermark {
+  position: absolute;
+  right: 18px;
+  bottom: -6px;
+  font-family: Georgia, Garamond, serif;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  z-index: 0;
+  text-align: right;
+}
+
+.story-crest-watermark .watermark-letter {
+  font-size: 130px;
+  font-weight: 700;
+  color: #887a56;
+  opacity: 0.03;
+  display: block;
+}
+
+.story-crest-watermark .watermark-sub {
+  font-size: 12px;
+  letter-spacing: 8px;
+  font-weight: 700;
+  color: #887a56;
+  opacity: 0.035;
+  display: block;
+  margin-top: -16px;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 860px) {
+  .story-frame-inner {
+    padding: 26px 18px;
+  }
+  .story-editorial-duo {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .plate-img-wrapper {
+    height: 240px;
+  }
+  .story-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .story-manifesto-footer {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .story-cta-actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .brand-story-luxury {
+    padding: 32px 12px 40px;
+  }
+  .story-frame-outer {
+    padding: 6px;
+  }
+  .story-frame-inner {
+    padding: 20px 14px;
+  }
+  .story-lead-quote {
+    padding: 12px 14px;
+    font-size: 13.5px;
+  }
+  .story-btn-primary,
+  .story-link-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+}

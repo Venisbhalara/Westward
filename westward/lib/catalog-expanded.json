@@ -1,0 +1,1781 @@
+[
+  {
+    "id": "solstice-resort-shirt",
+    "name": "The Solstice Resort Shirt",
+    "category": "Shirts",
+    "price": 3990,
+    "image": "18153495",
+    "color": "Sand",
+    "hex": "#c8c1b2",
+    "tag": "NEW ARRIVAL",
+    "description": "A breezy camp collar and easy proportions bring a quiet holiday mood to everyday dressing.",
+    "fabric": "Linen blend · Resort fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "sundown-oxford-shirt",
+    "name": "The Sundown Oxford Shirt",
+    "category": "Shirts",
+    "price": 4290,
+    "image": "11805694",
+    "color": "Sky blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A clean button-down shape for the office, the weekend and everything in between.",
+    "fabric": "Oxford cotton · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "ranch-hand-check-shirt",
+    "name": "The Ranch Hand Check Shirt",
+    "category": "Shirts",
+    "price": 4490,
+    "image": "9051692",
+    "color": "Monochrome check",
+    "hex": "#c8c1b2",
+    "tag": "THE COLLECTION",
+    "description": "Classic checks meet a practical everyday cut with space for a light base layer.",
+    "fabric": "Cotton flannel · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "horizon-poplin-shirt",
+    "name": "The Horizon Poplin Shirt",
+    "category": "Shirts",
+    "price": 3790,
+    "image": "8350480",
+    "color": "Chalk",
+    "hex": "#e9e5da",
+    "tag": "THE COLLECTION",
+    "description": "Crisp, lightweight shirting with an open neckline and an unhurried silhouette.",
+    "fabric": "Cotton poplin · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "sagebrush-field-shirt",
+    "name": "The Sagebrush Field Shirt",
+    "category": "Shirts",
+    "price": 4690,
+    "image": "6838910",
+    "color": "Sage check",
+    "hex": "#78806b",
+    "tag": "THE ESSENTIALS",
+    "description": "A western-inspired check shirt with a roomy body designed for easy layering.",
+    "fabric": "Cotton twill · Utility fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "oasis-linen-shirt",
+    "name": "The Oasis Linen Shirt",
+    "category": "Shirts",
+    "price": 4590,
+    "image": "18153495",
+    "color": "Natural",
+    "hex": "#c8c1b2",
+    "tag": "THE COLLECTION",
+    "description": "Natural texture and a simple silhouette make this a warm-weather wardrobe staple.",
+    "fabric": "Linen blend · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "clearwater-chambray-shirt",
+    "name": "The Clearwater Chambray Shirt",
+    "category": "Shirts",
+    "price": 4890,
+    "image": "11805694",
+    "color": "Powder blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "Soft blue tones and a fluid shape make an easy partner for dark denim.",
+    "fabric": "Cotton chambray · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "trailhead-flannel-shirt",
+    "name": "The Trailhead Flannel Shirt",
+    "category": "Shirts",
+    "price": 4990,
+    "image": "9051692",
+    "color": "Black check",
+    "hex": "#282825",
+    "tag": "NEW ARRIVAL",
+    "description": "A softly brushed check layer for cooler mornings and late evenings outdoors.",
+    "fabric": "Brushed cotton · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "sunday-club-shirt",
+    "name": "The Sunday Club Shirt",
+    "category": "Shirts",
+    "price": 3490,
+    "image": "8350480",
+    "color": "Ivory",
+    "hex": "#e9e5da",
+    "tag": "THE ESSENTIALS",
+    "description": "A pared-back everyday shirt with a generous cut and a softly structured collar.",
+    "fabric": "Cotton blend · Easy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "prairie-check-shirt",
+    "name": "The Prairie Check Shirt",
+    "category": "Shirts",
+    "price": 4290,
+    "image": "6838910",
+    "color": "Olive check",
+    "hex": "#78806b",
+    "tag": "THE COLLECTION",
+    "description": "An understated check pattern brings a little western character to your daily rotation.",
+    "fabric": "Woven cotton · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "paloma-cuban-shirt",
+    "name": "The Paloma Cuban Shirt",
+    "category": "Shirts",
+    "price": 4190,
+    "image": "18153495",
+    "color": "Ecru",
+    "hex": "#e9e5da",
+    "tag": "THE COLLECTION",
+    "description": "A short, open-collar profile with a little extra width through the body.",
+    "fabric": "Linen blend · Boxy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "blue-ridge-dress-shirt",
+    "name": "The Blue Ridge Dress Shirt",
+    "category": "Shirts",
+    "price": 5290,
+    "image": "11805694",
+    "color": "Pale blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A neater shape for considered dressing, designed to sit comfortably beneath a jacket.",
+    "fabric": "Fine cotton · Tailored fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "homestead-work-shirt",
+    "name": "The Homestead Work Shirt",
+    "category": "Shirts",
+    "price": 4590,
+    "image": "9051692",
+    "color": "Charcoal check",
+    "hex": "#282825",
+    "tag": "THE ESSENTIALS",
+    "description": "A familiar workwear silhouette in a versatile, graphic check.",
+    "fabric": "Cotton twill · Straight fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "dawn-collarless-shirt",
+    "name": "The Dawn Collarless Shirt",
+    "category": "Shirts",
+    "price": 3990,
+    "image": "8350480",
+    "color": "Off white",
+    "hex": "#e9e5da",
+    "tag": "THE COLLECTION",
+    "description": "A minimal collarless design that puts light texture and natural drape first.",
+    "fabric": "Cotton linen · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "outpost-overshirt",
+    "name": "The Outpost Overshirt",
+    "category": "Shirts",
+    "price": 6490,
+    "image": "6838910",
+    "color": "Moss check",
+    "hex": "#78806b",
+    "tag": "NEW ARRIVAL",
+    "description": "A substantial check layer for wearing open over a favourite tee.",
+    "fabric": "Heavy cotton · Oversized fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "coastal-stripe-shirt",
+    "name": "The Coastal Stripe Shirt",
+    "category": "Shirts",
+    "price": 4790,
+    "image": "18153495",
+    "color": "Natural stripe",
+    "hex": "#c8c1b2",
+    "tag": "THE COLLECTION",
+    "description": "A subtle stripe and an easy shape add texture without overpowering your outfit.",
+    "fabric": "Linen blend · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "cedar-weekend-shirt",
+    "name": "The Cedar Weekend Shirt",
+    "category": "Shirts",
+    "price": 3990,
+    "image": "11805694",
+    "color": "Blue mist",
+    "hex": "#517a96",
+    "tag": "THE ESSENTIALS",
+    "description": "An everyday blue shirt with comfortable proportions for a casual half-tuck.",
+    "fabric": "Cotton blend · Easy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "rodeo-western-shirt",
+    "name": "The Rodeo Western Shirt",
+    "category": "Shirts",
+    "price": 5490,
+    "image": "9051692",
+    "color": "Black and cream",
+    "hex": "#282825",
+    "tag": "THE COLLECTION",
+    "description": "A western yoke silhouette and classic checks give this layer lasting character.",
+    "fabric": "Cotton flannel · Western fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "studio-heavyweight-tee",
+    "name": "The Studio Heavyweight Tee",
+    "category": "Essentials",
+    "price": 2490,
+    "image": "25753595",
+    "color": "Black",
+    "hex": "#282825",
+    "tag": "NEW ARRIVAL",
+    "description": "A substantial black tee with a clean neckline and a squared-off shape.",
+    "fabric": "Heavy cotton jersey · Boxy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "daybreak-crew-tee",
+    "name": "The Daybreak Crew Tee",
+    "category": "Essentials",
+    "price": 1790,
+    "image": "28426846",
+    "color": "White",
+    "hex": "#e9e5da",
+    "tag": "THE COLLECTION",
+    "description": "The clean white crew neck that works with everything in your wardrobe.",
+    "fabric": "Cotton jersey · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "oatfield-knit-sweater",
+    "name": "The Oatfield Knit Sweater",
+    "category": "Essentials",
+    "price": 4990,
+    "image": "3754251",
+    "color": "Oatmeal",
+    "hex": "#b6a68c",
+    "tag": "THE COLLECTION",
+    "description": "A soft neutral knit with generous room through the body and sleeves.",
+    "fabric": "Cotton blend knit · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "desert-pique-polo",
+    "name": "The Desert Pique Polo",
+    "category": "Essentials",
+    "price": 3290,
+    "image": "17898553",
+    "color": "Cream",
+    "hex": "#b6a68c",
+    "tag": "THE COLLECTION",
+    "description": "An easy cream polo with a subtly textured feel and neat collar.",
+    "fabric": "Cotton pique · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "canyon-pocket-tee",
+    "name": "The Canyon Pocket Tee",
+    "category": "Essentials",
+    "price": 2290,
+    "image": "18701785",
+    "color": "Clay",
+    "hex": "#b6a68c",
+    "tag": "THE ESSENTIALS",
+    "description": "Warm earth tones and a practical pocket detail make an everyday favourite.",
+    "fabric": "Cotton jersey · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "midnight-longline-tee",
+    "name": "The Midnight Longline Tee",
+    "category": "Essentials",
+    "price": 2390,
+    "image": "25753595",
+    "color": "Ink",
+    "hex": "#282825",
+    "tag": "THE COLLECTION",
+    "description": "A longer silhouette in a dark neutral for simple, layered outfits.",
+    "fabric": "Cotton jersey · Longline fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "cloud-oversized-tee",
+    "name": "The Cloud Oversized Tee",
+    "category": "Essentials",
+    "price": 2590,
+    "image": "28426846",
+    "color": "Cloud white",
+    "hex": "#e9e5da",
+    "tag": "THE COLLECTION",
+    "description": "Dropped shoulders and a roomy shape give the classic white tee a new proportion.",
+    "fabric": "Heavy cotton · Oversized fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "hearth-crew-knit",
+    "name": "The Hearth Crew Knit",
+    "category": "Essentials",
+    "price": 5490,
+    "image": "3754251",
+    "color": "Beige",
+    "hex": "#b6a68c",
+    "tag": "NEW ARRIVAL",
+    "description": "An understated crew neck knit made to sit easily over a shirt or tee.",
+    "fabric": "Textured knit · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "sierra-tipped-polo",
+    "name": "The Sierra Tipped Polo",
+    "category": "Essentials",
+    "price": 3790,
+    "image": "17898553",
+    "color": "Ecru",
+    "hex": "#e9e5da",
+    "tag": "THE ESSENTIALS",
+    "description": "A trim polo silhouette with restrained collar detailing for smart everyday dressing.",
+    "fabric": "Cotton blend · Slim fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "silt-boxy-tee",
+    "name": "The Silt Boxy Tee",
+    "category": "Essentials",
+    "price": 2190,
+    "image": "18701785",
+    "color": "Taupe",
+    "hex": "#b6a68c",
+    "tag": "THE COLLECTION",
+    "description": "A boxier shape brings a relaxed feel to this muted earth-tone essential.",
+    "fabric": "Cotton jersey · Boxy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "afterhours-crew-tee",
+    "name": "The Afterhours Crew Tee",
+    "category": "Essentials",
+    "price": 1990,
+    "image": "25753595",
+    "color": "Jet black",
+    "hex": "#282825",
+    "tag": "THE COLLECTION",
+    "description": "A familiar black crew neck for a dependable daily rotation.",
+    "fabric": "Soft cotton jersey · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "weekend-rib-tee",
+    "name": "The Weekend Rib Tee",
+    "category": "Essentials",
+    "price": 2290,
+    "image": "11154974",
+    "color": "Chalk white",
+    "hex": "#e9e5da",
+    "tag": "THE COLLECTION",
+    "description": "Subtle rib texture gives a simple white tee a little extra depth.",
+    "fabric": "Ribbed cotton · Easy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "meadow-waffle-knit",
+    "name": "The Meadow Waffle Knit",
+    "category": "Essentials",
+    "price": 5990,
+    "image": "3754251",
+    "color": "Sand",
+    "hex": "#b6a68c",
+    "tag": "THE ESSENTIALS",
+    "description": "An open, tactile knit structure in a versatile natural shade.",
+    "fabric": "Waffle knit · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "terrace-knit-polo",
+    "name": "The Terrace Knit Polo",
+    "category": "Essentials",
+    "price": 4490,
+    "image": "17898553",
+    "color": "Light oat",
+    "hex": "#b6a68c",
+    "tag": "THE COLLECTION",
+    "description": "An easy knit polo designed to move between casual and dressed-up moments.",
+    "fabric": "Cotton knit · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "adobe-long-sleeve-tee",
+    "name": "The Adobe Long Sleeve Tee",
+    "category": "Essentials",
+    "price": 2790,
+    "image": "18701785",
+    "color": "Earth brown",
+    "hex": "#b6a68c",
+    "tag": "NEW ARRIVAL",
+    "description": "A long-sleeve essential in a warm neutral, perfect as a light base layer.",
+    "fabric": "Cotton jersey · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "foundry-mock-neck",
+    "name": "The Foundry Mock Neck",
+    "category": "Essentials",
+    "price": 2990,
+    "image": "25753595",
+    "color": "Coal",
+    "hex": "#282825",
+    "tag": "THE COLLECTION",
+    "description": "A clean mock neckline and close shape for refined, simple layering.",
+    "fabric": "Cotton stretch · Close fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "off-duty-slub-tee",
+    "name": "The Off Duty Slub Tee",
+    "category": "Essentials",
+    "price": 2090,
+    "image": "11154974",
+    "color": "Soft white",
+    "hex": "#e9e5da",
+    "tag": "THE ESSENTIALS",
+    "description": "A gently irregular texture brings a lived-in feel to the everyday white tee.",
+    "fabric": "Slub cotton · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "ranger-straight-jeans",
+    "name": "The Ranger Straight Jeans",
+    "category": "Denim",
+    "price": 4990,
+    "image": "26966871",
+    "color": "Mid blue",
+    "hex": "#517a96",
+    "tag": "NEW ARRIVAL",
+    "description": "A classic straight leg with an easy rise and room through the thigh.",
+    "fabric": "Cotton denim · Straight leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "highway-relaxed-jeans",
+    "name": "The Highway Relaxed Jeans",
+    "category": "Denim",
+    "price": 5290,
+    "image": "7466695",
+    "color": "Vintage blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A comfortable, loose silhouette for everyday denim with a laid-back attitude.",
+    "fabric": "Cotton denim · Relaxed leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "warehouse-wide-jeans",
+    "name": "The Warehouse Wide Jeans",
+    "category": "Denim",
+    "price": 5790,
+    "image": "25752907",
+    "color": "Washed indigo",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A wider cut with plenty of movement and a substantial denim feel.",
+    "fabric": "Rigid denim · Wide leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "rock-creek-denim-shirt",
+    "name": "The Rock Creek Denim Shirt",
+    "category": "Denim",
+    "price": 4590,
+    "image": "8991023",
+    "color": "Light blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A lighter denim shirt for wearing on its own or open over a tee.",
+    "fabric": "Cotton denim · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "summit-western-denim-shirt",
+    "name": "The Summit Western Denim Shirt",
+    "category": "Denim",
+    "price": 5990,
+    "image": "26769894",
+    "color": "Deep blue",
+    "hex": "#517a96",
+    "tag": "THE ESSENTIALS",
+    "description": "An expressive western-inspired shirt in a rich blue wash.",
+    "fabric": "Cotton denim · Western fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "boundary-slim-jeans",
+    "name": "The Boundary Slim Jeans",
+    "category": "Denim",
+    "price": 5490,
+    "image": "26966871",
+    "color": "Classic blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A closer leg shape with a touch of stretch for everyday comfort.",
+    "fabric": "Stretch denim · Slim leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "switchback-taper-jeans",
+    "name": "The Switchback Taper Jeans",
+    "category": "Denim",
+    "price": 4990,
+    "image": "7466695",
+    "color": "Faded blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "Relaxed at the thigh and narrower at the ankle for a clean finish.",
+    "fabric": "Cotton denim · Tapered leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "freight-carpenter-jeans",
+    "name": "The Freight Carpenter Jeans",
+    "category": "Denim",
+    "price": 6490,
+    "image": "25752907",
+    "color": "Workwear blue",
+    "hex": "#517a96",
+    "tag": "NEW ARRIVAL",
+    "description": "Workwear-inspired pocketing and a generous leg make these a practical staple.",
+    "fabric": "Heavy denim · Utility fit",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "dry-river-denim-overshirt",
+    "name": "The Dry River Denim Overshirt",
+    "category": "Denim",
+    "price": 6290,
+    "image": "8991023",
+    "color": "Washed blue",
+    "hex": "#517a96",
+    "tag": "THE ESSENTIALS",
+    "description": "A roomy denim layer with space beneath for your everyday essentials.",
+    "fabric": "Heavy cotton denim · Oversized fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "copperline-snap-shirt",
+    "name": "The Copperline Snap Shirt",
+    "category": "Denim",
+    "price": 5790,
+    "image": "26769894",
+    "color": "Indigo blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A snap-front western silhouette with an easy, everyday cut.",
+    "fabric": "Cotton denim · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "crosstown-regular-jeans",
+    "name": "The Crosstown Regular Jeans",
+    "category": "Denim",
+    "price": 4490,
+    "image": "26966871",
+    "color": "Medium wash",
+    "hex": "#4d708c",
+    "tag": "THE COLLECTION",
+    "description": "A balanced, familiar jean with a straightforward shape from hip to hem.",
+    "fabric": "Cotton denim · Regular leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "long-weekend-jeans",
+    "name": "The Long Weekend Jeans",
+    "category": "Denim",
+    "price": 4790,
+    "image": "7466695",
+    "color": "Weathered blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "Soft-feeling denim and an easy leg for slower days and long journeys.",
+    "fabric": "Soft denim · Easy leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "depot-pleated-jeans",
+    "name": "The Depot Pleated Jeans",
+    "category": "Denim",
+    "price": 6990,
+    "image": "25752907",
+    "color": "Blue wash",
+    "hex": "#517a96",
+    "tag": "THE ESSENTIALS",
+    "description": "A pleated front adds a tailored touch to a generously cut jean.",
+    "fabric": "Rigid cotton denim · Wide leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "highland-chambray-shirt",
+    "name": "The Highland Chambray Shirt",
+    "category": "Denim",
+    "price": 4290,
+    "image": "8991023",
+    "color": "Stone blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "The look of denim in a lighter, softly structured shirt.",
+    "fabric": "Cotton chambray · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "heritage-denim-work-shirt",
+    "name": "The Heritage Denim Work Shirt",
+    "category": "Denim",
+    "price": 6490,
+    "image": "26769894",
+    "color": "Dark indigo",
+    "hex": "#517a96",
+    "tag": "NEW ARRIVAL",
+    "description": "A substantial shirt with workwear proportions for dependable layering.",
+    "fabric": "Heavy denim · Utility fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "open-road-bootcut-jeans",
+    "name": "The Open Road Bootcut Jeans",
+    "category": "Denim",
+    "price": 5990,
+    "image": "26966871",
+    "color": "Blue indigo",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A gently flared hem designed to sit easily over a favourite pair of boots.",
+    "fabric": "Cotton denim · Bootcut leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "dayland-cropped-jeans",
+    "name": "The Dayland Cropped Jeans",
+    "category": "Denim",
+    "price": 5190,
+    "image": "7466695",
+    "color": "Pale blue",
+    "hex": "#517a96",
+    "tag": "THE ESSENTIALS",
+    "description": "A shorter straight leg gives everyday denim a lighter finish.",
+    "fabric": "Cotton denim · Cropped straight leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "railway-barrel-jeans",
+    "name": "The Railway Barrel Jeans",
+    "category": "Denim",
+    "price": 6790,
+    "image": "25752907",
+    "color": "Washed blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A curved, roomy leg introduces a distinctive shape to your denim rotation.",
+    "fabric": "Cotton denim · Barrel leg",
+    "sizes": [
+      "28",
+      "30",
+      "32",
+      "34",
+      "36",
+      "38"
+    ]
+  },
+  {
+    "id": "blue-hour-denim-shirt",
+    "name": "The Blue Hour Denim Shirt",
+    "category": "Denim",
+    "price": 4890,
+    "image": "8991023",
+    "color": "Frost blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A soft blue shirt for tonal denim dressing or pairing with natural shades.",
+    "fabric": "Soft cotton denim · Easy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "northbound-denim-jacket",
+    "name": "The Northbound Denim Jacket",
+    "category": "Outerwear",
+    "price": 7990,
+    "image": "1046425",
+    "color": "Indigo",
+    "hex": "#517a96",
+    "tag": "NEW ARRIVAL",
+    "description": "A classic denim jacket with a balanced cut and a little western attitude.",
+    "fabric": "Cotton denim · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "badlands-trucker-jacket",
+    "name": "The Badlands Trucker Jacket",
+    "category": "Outerwear",
+    "price": 8490,
+    "image": "14894538",
+    "color": "Acid-wash blue",
+    "hex": "#71a4a3",
+    "tag": "THE COLLECTION",
+    "description": "A shorter, boxier trucker shape that works naturally with high-rise denim.",
+    "fabric": "Heavy denim · Boxy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "overland-utility-jacket",
+    "name": "The Overland Utility Jacket",
+    "category": "Outerwear",
+    "price": 12990,
+    "image": "17178653",
+    "color": "Chocolate brown",
+    "hex": "#5c3f30",
+    "tag": "THE COLLECTION",
+    "description": "A substantial brown overshirt jacket with easy proportions for layering through the cooler months.",
+    "fabric": "Cotton blend · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "cityline-overcoat",
+    "name": "The Cityline Overcoat",
+    "category": "Outerwear",
+    "price": 14990,
+    "image": "11173795",
+    "color": "Camel",
+    "hex": "#a27c5b",
+    "tag": "THE COLLECTION",
+    "description": "A neatly structured overcoat for taking everyday dressing a little further.",
+    "fabric": "Wool blend · Tailored fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "timber-shearling-jacket",
+    "name": "The Timber Shearling Jacket",
+    "category": "Outerwear",
+    "price": 13990,
+    "image": "3448328",
+    "color": "Brown",
+    "hex": "#53585a",
+    "tag": "THE ESSENTIALS",
+    "description": "A warm, textured jacket with a shearling-style collar and a familiar silhouette.",
+    "fabric": "Textured outer · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "creekside-chore-jacket",
+    "name": "The Creekside Chore Jacket",
+    "category": "Outerwear",
+    "price": 7490,
+    "image": "1046425",
+    "color": "Blue denim",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A denim take on the chore jacket, with a relaxed body made for layering.",
+    "fabric": "Cotton denim · Utility fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "ridge-cropped-jacket",
+    "name": "The Ridge Cropped Jacket",
+    "category": "Outerwear",
+    "price": 8990,
+    "image": "14894538",
+    "color": "Acid-wash blue",
+    "hex": "#71a4a3",
+    "tag": "THE COLLECTION",
+    "description": "A cropped denim silhouette that adds shape to a simple tee-and-jeans outfit.",
+    "fabric": "Cotton denim · Cropped fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "harbour-shirt-jacket",
+    "name": "The Harbour Shirt Jacket",
+    "category": "Outerwear",
+    "price": 9990,
+    "image": "17178653",
+    "color": "Chocolate brown",
+    "hex": "#5c3f30",
+    "tag": "NEW ARRIVAL",
+    "description": "A clean shirt-jacket silhouette with a practical length for everyday dressing.",
+    "fabric": "Cotton twill · Straight fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "midtown-long-coat",
+    "name": "The Midtown Long Coat",
+    "category": "Outerwear",
+    "price": 16990,
+    "image": "11173795",
+    "color": "Camel",
+    "hex": "#a27c5b",
+    "tag": "THE ESSENTIALS",
+    "description": "A longer line and relaxed shoulders create a softly dramatic outer layer.",
+    "fabric": "Wool blend · Long relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "lodge-aviator-jacket",
+    "name": "The Lodge Aviator Jacket",
+    "category": "Outerwear",
+    "price": 14990,
+    "image": "3448328",
+    "color": "Tobacco brown",
+    "hex": "#53585a",
+    "tag": "THE COLLECTION",
+    "description": "An aviator-inspired silhouette with a substantial collar and generous body.",
+    "fabric": "Textured outer · Boxy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "pioneer-field-jacket",
+    "name": "The Pioneer Field Jacket",
+    "category": "Outerwear",
+    "price": 9490,
+    "image": "1046425",
+    "color": "Dark blue",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A field-jacket interpretation in denim, built around an easy layered shape.",
+    "fabric": "Cotton denim · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "drylands-work-jacket",
+    "name": "The Drylands Work Jacket",
+    "category": "Outerwear",
+    "price": 8290,
+    "image": "14894538",
+    "color": "Acid-wash blue",
+    "hex": "#71a4a3",
+    "tag": "THE COLLECTION",
+    "description": "A workwear denim layer with honest texture and uncomplicated lines.",
+    "fabric": "Heavy cotton denim · Workwear fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "evening-collared-jacket",
+    "name": "The Evening Collared Jacket",
+    "category": "Outerwear",
+    "price": 15990,
+    "image": "17178653",
+    "color": "Chocolate brown",
+    "hex": "#5c3f30",
+    "tag": "THE ESSENTIALS",
+    "description": "A structured collar and warm brown texture bring a considered finish to relaxed layers.",
+    "fabric": "Textured cotton blend · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "journey-travel-coat",
+    "name": "The Journey Travel Coat",
+    "category": "Outerwear",
+    "price": 13990,
+    "image": "11173795",
+    "color": "Camel",
+    "hex": "#a27c5b",
+    "tag": "THE COLLECTION",
+    "description": "An easy travel-length coat with room to wear over a chunky knit.",
+    "fabric": "Wool blend · Easy fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "alpine-collar-jacket",
+    "name": "The Alpine Collar Jacket",
+    "category": "Outerwear",
+    "price": 15990,
+    "image": "3448328",
+    "color": "Chestnut",
+    "hex": "#53585a",
+    "tag": "NEW ARRIVAL",
+    "description": "Warm brown tones and a prominent collar make a characterful cold-weather layer.",
+    "fabric": "Textured outer · Relaxed fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "mesa-utility-blouson",
+    "name": "The Mesa Utility Blouson",
+    "category": "Outerwear",
+    "price": 9990,
+    "image": "1046425",
+    "color": "Indigo wash",
+    "hex": "#517a96",
+    "tag": "THE COLLECTION",
+    "description": "A denim blouson silhouette with a shorter length and an easy body.",
+    "fabric": "Cotton denim · Blouson fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "outrider-oversized-jacket",
+    "name": "The Outrider Oversized Jacket",
+    "category": "Outerwear",
+    "price": 10490,
+    "image": "14894538",
+    "color": "Acid-wash blue",
+    "hex": "#71a4a3",
+    "tag": "THE ESSENTIALS",
+    "description": "An oversized denim jacket designed to be the last layer on your way out.",
+    "fabric": "Cotton denim · Oversized fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "ridgeline-pocket-jacket",
+    "name": "The Ridgeline Pocket Jacket",
+    "category": "Outerwear",
+    "price": 14490,
+    "image": "17178653",
+    "color": "Chocolate brown",
+    "hex": "#5c3f30",
+    "tag": "THE COLLECTION",
+    "description": "A versatile pocket jacket with clean lines and a deep brown finish.",
+    "fabric": "Heavy cotton blend · Regular fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "nightfall-topcoat",
+    "name": "The Nightfall Topcoat",
+    "category": "Outerwear",
+    "price": 19990,
+    "image": "11173795",
+    "color": "Camel",
+    "hex": "#a27c5b",
+    "tag": "THE COLLECTION",
+    "description": "A refined topcoat silhouette for evenings out and the cooler season ahead.",
+    "fabric": "Wool blend · Refined fit",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ]
+  },
+  {
+    "id": "summit-hiker-boot",
+    "name": "The Summit Hiker Boot",
+    "category": "Footwear",
+    "price": 9990,
+    "image": "10433248",
+    "color": "Olive brown",
+    "hex": "#746d56",
+    "tag": "NEW ARRIVAL",
+    "description": "An outdoor-inspired boot with a substantial sole and a supportive high profile.",
+    "fabric": "Textile and leather-look upper · Lug sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "borough-chunky-loafer",
+    "name": "The Borough Patterned Loafer",
+    "category": "Footwear",
+    "price": 7490,
+    "image": "15129894",
+    "color": "Black pattern",
+    "hex": "#343432",
+    "tag": "THE COLLECTION",
+    "description": "A patterned slip-on brings quiet texture to relaxed tailoring.",
+    "fabric": "Patterned upper · Moccasin sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "evening-penny-loafer",
+    "name": "The Evening Penny Loafer",
+    "category": "Footwear",
+    "price": 8990,
+    "image": "19556446",
+    "color": "Black",
+    "hex": "#282825",
+    "tag": "THE COLLECTION",
+    "description": "A classic penny-loafer shape for everyday smart dressing.",
+    "fabric": "Leather upper · Low sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "court-low-sneaker",
+    "name": "The Court Low Sneaker",
+    "category": "Footwear",
+    "price": 5490,
+    "image": "7545212",
+    "color": "White",
+    "hex": "#eeece5",
+    "tag": "THE COLLECTION",
+    "description": "A clean low-top sneaker that pairs easily with denim, chinos and casual trousers.",
+    "fabric": "Smooth upper · Rubber sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "canyon-lace-boot",
+    "name": "The Canyon Lace Boot",
+    "category": "Footwear",
+    "price": 9490,
+    "image": "9929606",
+    "color": "Cognac",
+    "hex": "#655043",
+    "tag": "THE ESSENTIALS",
+    "description": "A familiar lace-up boot in a warm brown tone for effortless everyday wear.",
+    "fabric": "Leather upper · Tread sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "trailhead-trek-boot",
+    "name": "The Trailhead Trek Boot",
+    "category": "Footwear",
+    "price": 10990,
+    "image": "10433248",
+    "color": "Olive brown",
+    "hex": "#746d56",
+    "tag": "THE COLLECTION",
+    "description": "A rugged-inspired silhouette with a practical lace-up front and a textured sole.",
+    "fabric": "Mixed-material upper · Deep tread sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "union-platform-loafer",
+    "name": "The Union Moccasin Loafer",
+    "category": "Footwear",
+    "price": 7990,
+    "image": "15129894",
+    "color": "Black pattern",
+    "hex": "#343432",
+    "tag": "THE COLLECTION",
+    "description": "A soft moccasin silhouette for an understated everyday finish.",
+    "fabric": "Soft upper · Low-profile sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "gallery-dress-loafer",
+    "name": "The Gallery Dress Loafer",
+    "category": "Footwear",
+    "price": 9490,
+    "image": "19556446",
+    "color": "Ink black",
+    "hex": "#282825",
+    "tag": "NEW ARRIVAL",
+    "description": "A refined slip-on profile for the moments that call for a little extra polish.",
+    "fabric": "Leather upper · Dress sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "weekend-cupsole-sneaker",
+    "name": "The Weekend Cupsole Sneaker",
+    "category": "Footwear",
+    "price": 5990,
+    "image": "7545212",
+    "color": "White",
+    "hex": "#eeece5",
+    "tag": "THE ESSENTIALS",
+    "description": "A versatile cupsole sneaker with a simple, everyday low-cut silhouette.",
+    "fabric": "Smooth upper · Cupsole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "frontier-work-boot",
+    "name": "The Frontier Work Boot",
+    "category": "Footwear",
+    "price": 10490,
+    "image": "9929606",
+    "color": "Tan brown",
+    "hex": "#655043",
+    "tag": "THE COLLECTION",
+    "description": "A work-boot inspired shape with a substantial feel and warm leather tones.",
+    "fabric": "Leather upper · Sturdy sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "high-pass-walking-boot",
+    "name": "The High Pass Walking Boot",
+    "category": "Footwear",
+    "price": 11990,
+    "image": "10433248",
+    "color": "Olive brown",
+    "hex": "#746d56",
+    "tag": "THE COLLECTION",
+    "description": "A high-profile walking silhouette that adds outdoor character to casual outfits.",
+    "fabric": "Mixed-material upper · Tread sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "district-lug-loafer",
+    "name": "The District Bar Loafer",
+    "category": "Footwear",
+    "price": 8490,
+    "image": "15129894",
+    "color": "Black pattern",
+    "hex": "#343432",
+    "tag": "THE COLLECTION",
+    "description": "A restrained metal bar adds a polished touch to a textured slip-on.",
+    "fabric": "Patterned upper · Metal bar detail",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "heritage-apron-loafer",
+    "name": "The Heritage Apron Loafer",
+    "category": "Footwear",
+    "price": 9990,
+    "image": "19556446",
+    "color": "Black",
+    "hex": "#282825",
+    "tag": "THE ESSENTIALS",
+    "description": "An apron-toe slip-on with a classic shape that sits well beneath straight-leg trousers.",
+    "fabric": "Leather upper · Apron-toe shape",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "baseline-leather-sneaker",
+    "name": "The Baseline Leather Sneaker",
+    "category": "Footwear",
+    "price": 6990,
+    "image": "7545212",
+    "color": "White",
+    "hex": "#eeece5",
+    "tag": "THE COLLECTION",
+    "description": "A pared-back white sneaker designed to become an everyday wardrobe staple.",
+    "fabric": "Leather-look upper · Flat sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "desert-patrol-boot",
+    "name": "The Desert Patrol Boot",
+    "category": "Footwear",
+    "price": 8990,
+    "image": "9929606",
+    "color": "Chestnut",
+    "hex": "#655043",
+    "tag": "NEW ARRIVAL",
+    "description": "A grounded lace-up boot for pairing with washed denim and easy layers.",
+    "fabric": "Leather upper · Rubber sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "highland-explorer-boot",
+    "name": "The Highland Explorer Boot",
+    "category": "Footwear",
+    "price": 12490,
+    "image": "10433248",
+    "color": "Olive brown",
+    "hex": "#746d56",
+    "tag": "THE COLLECTION",
+    "description": "A substantial explorer silhouette with a textured finish and outdoor-inspired details.",
+    "fabric": "Mixed-material upper · Rugged sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "foundry-commute-loafer",
+    "name": "The Foundry Driving Loafer",
+    "category": "Footwear",
+    "price": 8990,
+    "image": "15129894",
+    "color": "Black pattern",
+    "hex": "#343432",
+    "tag": "THE ESSENTIALS",
+    "description": "An easy driving-loafer silhouette for relaxed weekends and everyday dressing.",
+    "fabric": "Textured upper · Flexible sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "west-end-slip-on",
+    "name": "The West End Slip On",
+    "category": "Footwear",
+    "price": 10490,
+    "image": "19556446",
+    "color": "Midnight black",
+    "hex": "#282825",
+    "tag": "THE COLLECTION",
+    "description": "A neat slip-on silhouette for smart-casual dressing through the week.",
+    "fabric": "Leather upper · Low profile",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  },
+  {
+    "id": "open-court-trainer",
+    "name": "The Open Court Trainer",
+    "category": "Footwear",
+    "price": 6490,
+    "image": "7545212",
+    "color": "White",
+    "hex": "#eeece5",
+    "tag": "THE COLLECTION",
+    "description": "An easy trainer profile with a clean finish for your off-duty rotation.",
+    "fabric": "Smooth upper · Rubber sole",
+    "sizes": [
+      "UK 6",
+      "UK 7",
+      "UK 8",
+      "UK 9",
+      "UK 10",
+      "UK 11"
+    ]
+  }
+]

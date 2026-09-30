@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Production builds & cache
+dist/
+*/dist/
+.next/
+*/.next/
+.vinext/
+*/.vinext/
+.wrangler/
+*/.wrangler/
+.sites-runtime/
+*/.sites-runtime/
+.agents/
+.codex/
+outputs/
+work/
+*.tsbuildinfo
+
+# Scratch & temporary downloads
+downloaded_images/
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Environment files
+.env
+.env.*
+.env.local
+.env.*.local
+!.env.example
+!*/.env.example
