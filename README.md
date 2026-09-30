@@ -65,7 +65,7 @@ WESTWARD-Complete-Project/
 │   ├── lib/                          # Database Connectors & Catalog Services
 │   └── public/                       # High-Resolution Atelier Imagery
 │
-└── 🛡️ westward admin/                 # Executive Administration Suite (Port 5174)
+└── 🛡️ westward-admin/                 # Executive Administration Suite (Port 5174)
     ├── src/                          # Reactive Executive Dashboard UI (Vite + React)
     │   ├── components/               # Tactile Keypad, Metrics Cards, Order Table
     │   └── InspectModal.jsx          # Layered Atelier Fulfillment & Dossier Inspector
@@ -84,7 +84,7 @@ WESTWARD-Complete-Project/
 - **Precision Address Capture**: Clean, responsive shipping destination form writing directly to relational database tables.
 - **Persistent Wishlist & Bag**: Instant local and cloud-synchronized state management for saved items.
 
-### 2. Executive Admin Suite (`/westward admin`)
+### 2. Executive Admin Suite (`/westward-admin`)
 - **Isolated Administration Environment**: Completely separate folder structure and port isolation ensuring zero customer leakage.
 - **Multi-Layered Security Middleware**: Protected administrative endpoints guarded by encrypted cookies and authorization tokens with automated rate-limiting.
 - **Tactile PIN Authentication Gate**: 6-digit access keypad with brute-force lockout safeguards.
@@ -103,9 +103,9 @@ The Executive Admin Suite is fortified with customizable, private credential man
 
 ### How to Configure Your Custom Admin PIN:
 
-1. Navigate to the `westward admin` directory:
+1. Navigate to the `westward-admin` directory:
    ```bash
-   cd "westward admin"
+   cd westward-admin
    ```
 
 2. Open your `.env` configuration file (or copy from `.env.example`):
@@ -163,7 +163,7 @@ npm run dev
 ### 3. Executive Admin Suite
 In a separate terminal, launch the executive management portal:
 ```bash
-cd "westward admin"
+cd westward-admin
 npm install
 node server.mjs
 ```

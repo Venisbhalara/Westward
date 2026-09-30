@@ -5,6 +5,8 @@ node_modules/
 # Production builds & cache
 dist/
 */dist/
+build/
+*/build/
 .next/
 */.next/
 .vinext/

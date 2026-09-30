@@ -462,7 +462,7 @@ async function startServer() {
     console.log(`\n======================================================`);
     console.log(`🛡️  WESTWARD ATELIER — REALTIME EXECUTIVE ADMIN PANEL`);
     console.log(`🌐  Local URL:        http://localhost:${PORT}`);
-    console.log(`🔑  Default PIN:      ${ADMIN_PIN}`);
+    console.log(`🔐  Admin PIN:        ${process.env.ADMIN_PIN ? 'Custom PIN loaded from .env' : 'Configured via .env'}`);
     console.log(`💾  Connected DB:     ${process.env.DB_NAME || 'westward_db'} on ${process.env.DB_HOST || '127.0.0.1'}`);
     console.log(`======================================================\n`);
   });

@@ -5,7 +5,7 @@ A dedicated, isolated, full-stack administrative platform for managing the WESTW
 ## 🚀 Quick Start
 
 ```bash
-cd "d:\WESTWARD-Complete-Project\westward admin"
+cd westward-admin
 npm run dev
 ```
 
