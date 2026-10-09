@@ -35,7 +35,7 @@ npm run dev
    - Detailed Order Inspection Modal:
      - Full delivery destination address (Name, Street, City, PIN code, Email).
      - Individual pieces ordered (Images, Names, Sizes, Quantities, Unit Prices).
-     - Live 1-click status update (`Confirmed` ➔ `Atelier Prep` ➔ `Dispatched` ➔ `Delivered` ➔ `Cancelled`) syncing directly to MySQL.
+     - Live 1-click status update (`Confirmed` ➔ `Atelier Prep` ➔ `Dispatched` ➔ `Delivered` ➔ `Cancelled`) syncing directly to MongoDB.
      - Print Packing Slip / Invoice button.
 
 4. **👥 Registered Customers Directory:**
@@ -47,7 +47,7 @@ npm run dev
 5. **🧥 Catalog & Garment Inventory:**
    - Real-time catalog from `westward_db.products`.
    - Filter by category (`Shirts`, `Jackets`, `Denim`, `Trousers`, `Footwear`, etc.).
-   - Add new products modal with direct MySQL insert.
+   - Add new products modal with direct MongoDB insert.
    - Edit retail prices and product details.
    - Delete product with confirmation.
 
@@ -59,9 +59,10 @@ npm run dev
 
 ---
 
-## 🗄️ Database Architecture
+## 🍃 Database Architecture
 
-Directly connected to MySQL Workbench:
+Directly connected to **MongoDB**:
 - **Database:** `westward_db`
-- **Host:** `127.0.0.1:3306`
-- **Tables Connected:** `orders`, `users`, `products`, `contact_inquiries`, `bag`, `wishlist`, `sessions`.
+- **Connection URI:** `mongodb://127.0.0.1:27017/westward_db`
+- **Collections Connected:** `orders`, `users`, `products`, `contact_inquiries`, `bag`, `wishlist`, `sessions`.
+- **Visualization:** View all collections, documents, and real-time updates directly in **MongoDB Compass**.

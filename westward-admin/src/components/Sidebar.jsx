@@ -91,11 +91,11 @@ export default function Sidebar({ currentView, setView, stats, onLock }) {
         })}
       </nav>
 
-      {/* Footer with MySQL Status & Lock button */}
+      {/* Footer with MongoDB Status & Lock button */}
       <div className="sidebar-footer">
         <div className="system-status-indicator">
-          <div className="status-dot-pulse" />
-          <span>MySQL Realtime Synced</span>
+          <div className="status-dot-pulse" style={{ backgroundColor: '#00ED64' }} />
+          <span>MongoDB Realtime Synced</span>
         </div>
         <button type="button" className="lock-session-btn" onClick={onLock}>
           <Lock size={14} />

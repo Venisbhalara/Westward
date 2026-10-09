@@ -1,7 +1,6 @@
-import mysql from 'mysql2/promise';
-import { DatabaseSync } from 'node:sqlite';
+import { MongoClient } from 'mongodb';
 import fs from 'node:fs';
-import path from 'node:path';
+
 function loadEnv() {
   try {
     const content = fs.readFileSync('.env', 'utf-8');
@@ -19,98 +18,68 @@ function loadEnv() {
 }
 loadEnv();
 
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/westward_db';
+const DB_NAME = 'westward_db';
+
 async function clearPreaddedData() {
   console.log('=====================================================');
-  console.log('🧹 CLEARING PRE-ADDED USER DATA & DEMO ORDERS');
+  console.log('🧹 CLEARING PRE-ADDED USER DATA & DEMO ORDERS FROM MONGODB');
   console.log('=====================================================\n');
 
-  // 1. Clear MySQL westward_db tables
-  const conn = await mysql.createConnection({
-    host: process.env.DB_HOST || '127.0.0.1',
-    port: Number(process.env.DB_PORT) || 3306,
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '1234',
-    database: process.env.DB_NAME || 'westward_db',
-  });
+  const client = new MongoClient(MONGODB_URI);
+  await client.connect();
+  const db = client.db(DB_NAME);
 
-  console.log('1. Connected to MySQL westward_db...');
+  console.log(`1. Connected to MongoDB "${DB_NAME}"...`);
 
   // Count before
-  const [bOrders] = await conn.execute('SELECT COUNT(*) as c FROM orders');
-  const [bUsers] = await conn.execute('SELECT COUNT(*) as c FROM users');
-  const [bInq] = await conn.execute('SELECT COUNT(*) as c FROM contact_inquiries');
-  const [bBag] = await conn.execute('SELECT COUNT(*) as c FROM bag');
-  const [bWish] = await conn.execute('SELECT COUNT(*) as c FROM wishlist');
-  const [bSessions] = await conn.execute('SELECT COUNT(*) as c FROM sessions');
-  const [bProducts] = await conn.execute('SELECT COUNT(*) as c FROM products');
+  const bOrders = await db.collection('orders').countDocuments();
+  const bUsers = await db.collection('users').countDocuments();
+  const bInq = await db.collection('contact_inquiries').countDocuments();
+  const bBag = await db.collection('bag').countDocuments();
+  const bWish = await db.collection('wishlist').countDocuments();
+  const bSessions = await db.collection('sessions').countDocuments();
+  const bProducts = await db.collection('products').countDocuments();
 
-  console.log(`Pre-removal state in MySQL:`);
-  console.log(`- Orders: ${bOrders[0].c}`);
-  console.log(`- Users: ${bUsers[0].c}`);
-  console.log(`- Contact Inquiries: ${bInq[0].c}`);
-  console.log(`- Bag items: ${bBag[0].c}`);
-  console.log(`- Wishlist items: ${bWish[0].c}`);
-  console.log(`- Sessions: ${bSessions[0].c}`);
-  console.log(`- Products (to preserve): ${bProducts[0].c}`);
+  console.log(`Pre-removal state in MongoDB:`);
+  console.log(`- Orders: ${bOrders}`);
+  console.log(`- Users: ${bUsers}`);
+  console.log(`- Contact Inquiries: ${bInq}`);
+  console.log(`- Bag items: ${bBag}`);
+  console.log(`- Wishlist items: ${bWish}`);
+  console.log(`- Sessions: ${bSessions}`);
+  console.log(`- Products (to preserve): ${bProducts}`);
 
   // Delete pre-added userdata and demo orders (KEEP products intact!)
-  await conn.execute('DELETE FROM orders');
-  await conn.execute('DELETE FROM users');
-  await conn.execute('DELETE FROM contact_inquiries');
-  await conn.execute('DELETE FROM bag');
-  await conn.execute('DELETE FROM wishlist');
-  await conn.execute('DELETE FROM sessions');
+  await db.collection('orders').deleteMany({});
+  await db.collection('users').deleteMany({});
+  await db.collection('contact_inquiries').deleteMany({});
+  await db.collection('bag').deleteMany({});
+  await db.collection('wishlist').deleteMany({});
+  await db.collection('sessions').deleteMany({});
 
-  console.log('\n✔ Cleared MySQL tables: orders, users, contact_inquiries, bag, wishlist, sessions');
+  console.log('\n✔ Cleared MongoDB collections: orders, users, contact_inquiries, bag, wishlist, sessions');
 
   // Verify after
-  const [aOrders] = await conn.execute('SELECT COUNT(*) as c FROM orders');
-  const [aUsers] = await conn.execute('SELECT COUNT(*) as c FROM users');
-  const [aInq] = await conn.execute('SELECT COUNT(*) as c FROM contact_inquiries');
-  const [aBag] = await conn.execute('SELECT COUNT(*) as c FROM bag');
-  const [aWish] = await conn.execute('SELECT COUNT(*) as c FROM wishlist');
-  const [aProducts] = await conn.execute('SELECT COUNT(*) as c FROM products');
+  const aOrders = await db.collection('orders').countDocuments();
+  const aUsers = await db.collection('users').countDocuments();
+  const aInq = await db.collection('contact_inquiries').countDocuments();
+  const aBag = await db.collection('bag').countDocuments();
+  const aWish = await db.collection('wishlist').countDocuments();
+  const aProducts = await db.collection('products').countDocuments();
 
-  console.log(`Post-removal state in MySQL:`);
-  console.log(`- Orders: ${aOrders[0].c}`);
-  console.log(`- Users: ${aUsers[0].c}`);
-  console.log(`- Contact Inquiries: ${aInq[0].c}`);
-  console.log(`- Bag items: ${aBag[0].c}`);
-  console.log(`- Wishlist items: ${aWish[0].c}`);
-  console.log(`- Products preserved: ${aProducts[0].c}`);
+  console.log(`\nPost-removal state in MongoDB:`);
+  console.log(`- Orders: ${aOrders}`);
+  console.log(`- Users: ${aUsers}`);
+  console.log(`- Contact Inquiries: ${aInq}`);
+  console.log(`- Bag items: ${aBag}`);
+  console.log(`- Wishlist items: ${aWish}`);
+  console.log(`- Products preserved: ${aProducts}`);
 
-  await conn.end();
-
-  // 2. Clear local D1 SQLite database
-  const d1Dir = path.resolve('.wrangler/state/v3/d1/miniflare-D1DatabaseObject');
-  if (fs.existsSync(d1Dir)) {
-    const files = fs.readdirSync(d1Dir);
-    const sqliteFile = files.find(f => f.endsWith('.sqlite') && f !== 'metadata.sqlite');
-    if (sqliteFile) {
-      const fullSqlitePath = path.join(d1Dir, sqliteFile);
-      console.log(`\n2. Found local D1 SQLite database: ${sqliteFile}`);
-      try {
-        const d1Db = new DatabaseSync(fullSqlitePath);
-        const tables = d1Db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-        const tableNames = tables.map(t => t.name);
-
-        for (const t of ['orders', 'users', 'contact_inquiries', 'bag', 'wishlist', 'sessions']) {
-          if (tableNames.includes(t)) {
-            d1Db.prepare(`DELETE FROM ${t}`).run();
-            console.log(`✔ Cleared D1 table: ${t}`);
-          }
-        }
-        d1Db.close();
-      } catch (err) {
-        console.warn('Note on D1 clear:', err.message);
-      }
-    }
-  }
-
+  await client.close();
   console.log('\n=====================================================');
-  console.log('✅ ALL PRE-ADDED USER DATA & DEMO ORDERS SUCCESSFULLY REMOVED!');
-  console.log('✅ PRODUCTS & CATALOG PRESERVED 100% INTACT!');
-  console.log('=====================================================');
+  console.log('✨ MONGODB CLEANUP COMPLETED SUCCESSFULLY');
+  console.log('=====================================================\n');
 }
 
 clearPreaddedData().catch(console.error);

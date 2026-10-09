@@ -1,7 +1,5 @@
-import {NextRequest, NextResponse} from 'next/server';
-import {database} from '@/db/store';
+import { NextRequest, NextResponse } from 'next/server';
 import {
-  ensureAuthTables,
   hashPassword,
   verifyPassword,
   createSession,
@@ -13,10 +11,9 @@ import {
   SESSION_COOKIE_NAME,
 } from '@/lib/auth';
 import {
-  syncUserToMySQL,
-  syncSessionToMySQL,
-  deleteSessionFromMySQL,
-} from '@/lib/mysql';
+  registerUserInMongoDB,
+  findUserByEmailInMongoDB,
+} from '@/lib/mongodb';
 
 export const dynamic = 'force-dynamic';
 
@@ -43,10 +40,10 @@ const json = (data: unknown, status = 200, cookieHeader?: string | string[]) => 
 export async function GET(req: NextRequest) {
   try {
     const user = await getAuthUser(req);
-    return json({user});
+    return json({ user });
   } catch (e) {
     console.error('Error fetching auth user:', e);
-    return json({user: null});
+    return json({ user: null });
   }
 }
 
@@ -54,13 +51,11 @@ export async function POST(req: NextRequest) {
   try {
     const origin = req.headers.get('origin');
     if (origin && origin !== new URL(req.url).origin) {
-      return json({error: 'Request not allowed'}, 403);
+      return json({ error: 'Request not allowed' }, 403);
     }
 
     const body = (await req.json()) as Record<string, unknown>;
     const action = body.action as string;
-    const db = database();
-    await ensureAuthTables(db);
 
     if (action === 'register') {
       const name = typeof body.name === 'string' ? body.name.trim() : '';
@@ -68,51 +63,36 @@ export async function POST(req: NextRequest) {
       const password = typeof body.password === 'string' ? body.password : '';
 
       if (!name || name.length < 2 || name.length > 100) {
-        return json({error: 'Please enter your full name (at least 2 characters).'}, 400);
+        return json({ error: 'Please enter your full name (at least 2 characters).' }, 400);
       }
       if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 150) {
-        return json({error: 'Please enter a valid email address.'}, 400);
+        return json({ error: 'Please enter a valid email address.' }, 400);
       }
       if (!password || password.length < 6) {
-        return json({error: 'Password must be at least 6 characters.'}, 400);
-      }
-
-      // Check if user already exists
-      const existing = await db
-        .prepare('SELECT id FROM users WHERE email = ?')
-        .bind(email)
-        .first<{id: string}>();
-
-      if (existing) {
-        return json({error: 'An account with this email already exists. Please sign in instead.'}, 409);
+        return json({ error: 'Password must be at least 6 characters.' }, 400);
       }
 
       const userId = 'usr_' + crypto.randomUUID().replace(/-/g, '').slice(0, 16);
       const passwordHash = await hashPassword(password);
       const createdAt = new Date().toISOString();
+      const sessionId = crypto.randomUUID();
+      const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
 
-      await db
-        .prepare('INSERT INTO users (id, name, email, password_hash, created_at) VALUES (?, ?, ?, ?, ?)')
-        .bind(userId, name, email, passwordHash, createdAt)
-        .run();
-
-      const sessionId = await createSession(db, userId);
-      const cookie = buildSessionCookie(sessionId);
-
-      // Mirror to MySQL Workbench database
-      await syncUserToMySQL({
+      const regResult = await registerUserInMongoDB({
         id: userId,
         name,
         email,
         passwordHash,
         createdAt,
+        sessionId,
+        expiresAt,
       });
-      await syncSessionToMySQL({
-        id: sessionId,
-        userId,
-        createdAt,
-        expiresAt: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000).toISOString(),
-      });
+
+      if (regResult.error) {
+        return json({ error: regResult.error }, 409);
+      }
+
+      const cookie = buildSessionCookie(sessionId);
 
       return json(
         {
@@ -133,40 +113,22 @@ export async function POST(req: NextRequest) {
       const password = typeof body.password === 'string' ? body.password : '';
 
       if (!email || !password) {
-        return json({error: 'Please enter both your email and password.'}, 400);
+        return json({ error: 'Please enter both your email and password.' }, 400);
       }
 
-      const user = await db
-        .prepare('SELECT id, name, email, password_hash FROM users WHERE email = ?')
-        .bind(email)
-        .first<{id: string; name: string; email: string; password_hash: string}>();
+      const user = await findUserByEmailInMongoDB(email);
 
       if (!user) {
-        return json({error: 'Invalid email or password. Please try again.'}, 401);
+        return json({ error: 'Invalid email or password. Please try again.' }, 401);
       }
 
-      const valid = await verifyPassword(password, user.password_hash);
+      const valid = await verifyPassword(password, user.passwordHash as string);
       if (!valid) {
-        return json({error: 'Invalid email or password. Please try again.'}, 401);
+        return json({ error: 'Invalid email or password. Please try again.' }, 401);
       }
 
-      const sessionId = await createSession(db, user.id);
+      const sessionId = await createSession(user.id as string);
       const cookie = buildSessionCookie(sessionId);
-
-      // Mirror session & user to MySQL Workbench database
-      await syncUserToMySQL({
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        passwordHash: user.password_hash,
-        createdAt: new Date().toISOString(),
-      });
-      await syncSessionToMySQL({
-        id: sessionId,
-        userId: user.id,
-        createdAt: new Date().toISOString(),
-        expiresAt: new Date(Date.now() + 60 * 60 * 24 * 30 * 1000).toISOString(),
-      });
 
       return json(
         {
@@ -183,24 +145,18 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === 'logout') {
-      const cookies = parseCookies(req.headers.get('cookie'));
+      const cookieHeader = req.headers.get('cookie');
+      const cookies = parseCookies(cookieHeader);
       const sessionId = cookies[SESSION_COOKIE_NAME];
       if (sessionId) {
-        await deleteSession(db, sessionId);
-        await deleteSessionFromMySQL(sessionId);
+        await deleteSession(sessionId);
       }
-
-      const cookiesToClear = [
-        buildLogoutCookie(),
-        '__sites_local_auth=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0',
-      ];
-
-      return json({ok: true}, 200, cookiesToClear);
+      return json({ ok: true }, 200, buildLogoutCookie());
     }
 
-    return json({error: 'Unknown action'}, 400);
+    return json({ error: 'Invalid auth action' }, 400);
   } catch (e) {
-    console.error('Auth action error:', e);
-    return json({error: 'Authentication failed. Please try again.'}, 500);
+    console.error('Auth error:', e);
+    return json({ error: 'Authentication service encountered an error. Please try again.' }, 500);
   }
 }

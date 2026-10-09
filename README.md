@@ -10,7 +10,7 @@
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.1-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-9.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Express](https://img.shields.io/badge/Express-Backend-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 
@@ -30,10 +30,11 @@
   - [Customer Storefront (`/westward`)](#1-customer-storefront-westward)
   - [Executive Admin Suite (`/westward-admin`)](#2-executive-admin-suite-westward-admin)
 - [🔐 Admin Security & Custom PIN Setup](#-admin-security--custom-pin-setup)
-- [Database Architecture](#-database-architecture)
+- [🍃 MongoDB Database Architecture](#-mongodb-database-architecture)
+- [Visualizing Data in MongoDB Compass](#-visualizing-data-in-mongodb-compass)
 - [Quick Start Guide](#-quick-start-guide)
   - [Prerequisites](#prerequisites)
-  - [1. Database Setup](#1-database-setup)
+  - [1. Database Initialization](#1-database-initialization)
   - [2. Customer Storefront](#2-customer-storefront)
   - [3. Executive Admin Suite](#3-executive-admin-suite)
 - [Design Philosophy & Aesthetic Tokens](#-design-philosophy--aesthetic-tokens)
@@ -45,7 +46,7 @@
 
 **WESTWARD** is an end-to-end luxury menswear digital ecosystem engineered for discerning fashion houses. Built with editorial Georgia serif typography, warm ivory linen textures, and an architectural color scheme, the platform delivers an immersive customer shopping journey backed by an isolated, high-security executive control center.
 
-Every order placed on the customer storefront seamlessly registers into **MySQL Workbench** and streams in real time to the **Executive Administration Suite**, allowing administrators to fulfill, inspect, and update orders with immediate live reflection on customer dashboards.
+Every order placed on the customer storefront seamlessly registers into **MongoDB** and streams in real time to the **Executive Administration Suite**, allowing administrators to fulfill, inspect, and update orders with immediate live reflection on customer dashboards.
 
 ---
 
@@ -62,15 +63,17 @@ WESTWARD-Complete-Project/
 │   │   ├── collection/               # Catalog Filtering (Shirts, Tailoring, Denim)
 │   │   └── product/[handle]/         # Immersive Product Display Pages
 │   ├── components/                   # Curated Component Library
-│   ├── lib/                          # Database Connectors & Catalog Services
+│   ├── lib/                          # MongoDB Connectors & Catalog Services
+│   │   ├── mongodb.ts                # Unified MongoDB Client & Collection Pools
+│   │   └── auth.ts                   # Native MongoDB Client Session & Auth Handler
 │   └── public/                       # High-Resolution Atelier Imagery
 │
 └── 🛡️ westward-admin/                 # Executive Administration Suite (Port 5174)
     ├── src/                          # Reactive Executive Dashboard UI (Vite + React)
     │   ├── components/               # Tactile Keypad, Metrics Cards, Order Table
     │   └── InspectModal.jsx          # Layered Atelier Fulfillment & Dossier Inspector
-    ├── server.mjs                    # Hardened Express Backend & Security Middleware
-    └── db.mjs                        # Dedicated Connection Pooling for MySQL
+    ├── server.mjs                    # Hardened Express Backend & MongoDB API
+    └── db.mjs                        # Dedicated MongoDB Connection Pooling
 ```
 
 ---
@@ -79,10 +82,10 @@ WESTWARD-Complete-Project/
 
 ### 1. Customer Storefront (`/westward`)
 - **100 Curated Garments**: Handcrafted collections spanning Italian linen shirts, selvedge denim, structured trench coats, merino knitwear, and leather footwear.
-- **Dynamic Real-Time Account Dashboard**: Customers experience continuous live synchronization with MySQL — order status progression reflects instantly without needing page refreshes.
+- **Dynamic Real-Time Account Dashboard**: Customers experience continuous live synchronization with MongoDB — order status progression reflects instantly without needing page refreshes.
 - **Interactive Fulfillment Pipeline**: Visual 4-stage tracking timeline (`Confirmed` &bull; `Atelier Prep` &bull; `Dispatched` &bull; `Delivered`).
-- **Precision Address Capture**: Clean, responsive shipping destination form writing directly to relational database tables.
-- **Persistent Wishlist & Bag**: Instant local and cloud-synchronized state management for saved items.
+- **Precision Address Capture**: Clean, responsive shipping destination form writing directly to MongoDB `orders` collection.
+- **Persistent Wishlist & Bag**: Instant local and cloud-synchronized MongoDB state management for saved items.
 
 ### 2. Executive Admin Suite (`/westward-admin`)
 - **Isolated Administration Environment**: Completely separate folder structure and port isolation ensuring zero customer leakage.
@@ -91,9 +94,9 @@ WESTWARD-Complete-Project/
 - **Atelier Fulfillment Dossier (Inspect Modal)**:
   - Deep inspection of customer shipping details, contact information, and order notes.
   - Granular breakdown of individual garments, sizes, quantities, and pricing.
-  - Interactive 1-click status transitions synced straight to MySQL.
+  - Interactive 1-click status transitions synced straight to MongoDB.
   - Printable **Packing Slip / Invoice** generation via `@media print`.
-- **Live Business Intelligence**: Real-time Gross Revenue, Order Velocity, Average Order Value (AOV), and Active Customer tallies.
+- **Live Business Intelligence**: Real-time Gross Revenue, Order Velocity, Average Order Value (AOV), and Active Customer tallies via MongoDB aggregation pipelines.
 
 ---
 
@@ -123,49 +126,73 @@ The Executive Admin Suite is fortified with customizable, private credential man
 
 ---
 
-## 🗄️ Database Architecture
+## 🍃 MongoDB Database Architecture
 
-WESTWARD utilizes a structured relational database schema hosted on **MySQL 8.0**:
+WESTWARD utilizes a high-performance document database hosted on **MongoDB**:
 
-| Table Name | Description | Key Attributes |
+| Collection Name | Description | Key Attributes / Schema |
 |:---|:---|:---|
-| `users` | Registered client profiles & authentication | `id`, `name`, `email`, `role`, `created_at` |
-| `addresses` | Saved customer delivery destinations | `id`, `user_id`, `street`, `city`, `postal_code`, `phone` |
-| `orders` | Master orders ledger with financial breakdown | `id`, `user_id`, `status`, `total_amount`, `created_at` |
-| `order_items` | Individual line items & garment specifications | `id`, `order_id`, `product_id`, `title`, `size`, `quantity`, `price` |
-| `products` | Atelier catalog pieces & stock management | `id`, `title`, `handle`, `price`, `category`, `image` |
-| `contact_inquiries` | Bespoke customer care tickets | `id`, `name`, `email`, `message`, `status`, `created_at` |
+| `users` | Registered client profiles & authentication | `id`, `name`, `email`, `passwordHash`, `createdAt` |
+| `products` | Atelier catalog pieces & stock management (100 items) | `id`, `name`, `category`, `price`, `color`, `sizes`, `image`, `description` |
+| `orders` | Master orders ledger with financial & item breakdown | `id`, `userId`, `requestId`, `items`, `total`, `address`, `status`, `createdAt` |
+| `bag` | Customer shopping cart state | `userId`, `productId`, `size`, `quantity` |
+| `wishlist` | Saved client bespoke garments | `userId`, `productId` |
+| `contact_inquiries` | Bespoke customer care tickets | `id`, `userId`, `name`, `email`, `phone`, `subject`, `message`, `status`, `createdAt` |
+| `sessions` | Active encrypted customer login tokens | `id`, `userId`, `createdAt`, `expiresAt` |
+
+---
+
+## 👁️ Visualizing Data in MongoDB Compass
+
+You can visually browse, inspect, query, and edit all data using **MongoDB Compass**:
+
+1. Open **MongoDB Compass** on your computer.
+2. In the connection bar, enter:
+   ```text
+   mongodb://127.0.0.1:27017
+   ```
+3. Click **Connect**.
+4. You will see the database **`westward_db`**.
+5. Click on **`westward_db`** to view all collections:
+   - `products` (All 100 menswear atelier catalog items)
+   - `orders` (Live orders ledger with addresses & items)
+   - `users` (Registered clients)
+   - `contact_inquiries` (Customer service requests)
+   - `bag`, `wishlist`, `sessions`
 
 ---
 
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
-- **Node.js** (v18.0.0 or higher recommended)
-- **MySQL Server** (Running locally on `127.0.0.1:3306`)
+- **Node.js** (v18.0.0 or higher)
+- **MongoDB Server** (Running locally on `127.0.0.1:27017` or MongoDB Atlas URI)
 
-### 1. Database Setup
-Launch MySQL Workbench or your preferred database GUI, and create the database:
-```sql
-CREATE DATABASE IF NOT EXISTS westward_db;
-```
-*(The schema and required relational tables will automatically initialize on the first application launch.)*
-
-### 2. Customer Storefront
-In your terminal, launch the storefront:
+### 1. Database Initialization
+Seed all 100 products and initial collections into MongoDB `westward_db`:
 ```bash
 cd westward
-npm install
+node scripts/seed-mongodb.mjs
+```
+
+Verify your MongoDB database:
+```bash
+node scripts/verify-mongodb-records.mjs
+```
+
+### 2. Customer Storefront
+Launch the luxury customer storefront:
+```bash
+cd westward
 npm run dev
 ```
 🌐 **Storefront URL:** [`http://localhost:5173`](http://localhost:5173)
 
 ### 3. Executive Admin Suite
-In a separate terminal, launch the executive management portal:
+Launch the executive management portal:
 ```bash
 cd westward-admin
-npm install
-node server.mjs
+npm run dev
 ```
 🛡️ **Admin Suite URL:** [`http://localhost:5174`](http://localhost:5174)
 

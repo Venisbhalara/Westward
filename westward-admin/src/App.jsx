@@ -38,7 +38,7 @@ export default function App() {
     checkAuth();
   }, []);
 
-  // Fetch all administrative records from MySQL
+  // Fetch all administrative records from MongoDB
   const fetchAllData = useCallback(async () => {
     if (!isAuthenticated) return;
     setRefreshing(true);

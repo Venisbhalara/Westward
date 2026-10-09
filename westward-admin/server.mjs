@@ -3,7 +3,16 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { createServer as createViteServer } from 'vite';
-import { query } from './db.mjs';
+import {
+  getOrdersCol,
+  getUsersCol,
+  getProductsCol,
+  getInquiriesCol,
+  getBagCol,
+  getWishlistCol,
+  getSessionsCol,
+  ensureIndexes,
+} from './db.mjs';
 
 dotenv.config();
 
@@ -37,10 +46,10 @@ function requireAdminAuth(req, res, next) {
   });
 }
 
-// Global API Route Protection Middleware: Protects EVERY /api route by default
+// Global API Route Protection Middleware: Protects /api routes, with public/backend paths exempted
 app.use('/api', (req, res, next) => {
   const publicPaths = ['/auth/pin', '/auth/check', '/auth/logout'];
-  if (publicPaths.includes(req.path)) {
+  if (publicPaths.includes(req.path) || req.path.startsWith('/backend/')) {
     return next();
   }
   return requireAdminAuth(req, res, next);
@@ -55,7 +64,6 @@ app.post('/api/auth/pin', (req, res) => {
   const now = Date.now();
   const attemptRecord = failedAttempts.get(clientIp);
 
-  // Check rate limit lockout
   if (attemptRecord && attemptRecord.lockedUntil > now) {
     const remainingSeconds = Math.ceil((attemptRecord.lockedUntil - now) / 1000);
     return res.status(429).json({
@@ -78,12 +86,11 @@ app.post('/api/auth/pin', (req, res) => {
     });
   }
 
-  // Clear failed attempts upon successful authentication
   failedAttempts.delete(clientIp);
 
   res.cookie('ww_admin_token', ADMIN_SESSION_SECRET, {
     httpOnly: true,
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    maxAge: 7 * 24 * 60 * 60 * 1000,
     sameSite: 'lax',
     path: '/',
   });
@@ -115,75 +122,80 @@ app.post('/api/auth/logout', (req, res) => {
 });
 
 // ==========================================
-// 2. DASHBOARD & ANALYTICS STATS
+// 2. DASHBOARD & ANALYTICS STATS (MONGODB AGGREGATIONS)
 // ==========================================
 
 app.get('/api/stats', requireAdminAuth, async (req, res) => {
   try {
-    // Total Revenue & Orders
-    const ordersStats = await query(
-      `SELECT 
-        COUNT(*) AS totalOrders,
-        COALESCE(SUM(total), 0) AS totalRevenue,
-        COALESCE(AVG(total), 0) AS avgOrderValue
-       FROM orders`
-    );
+    const ordersCol = await getOrdersCol();
+    const usersCol = await getUsersCol();
+    const inquiriesCol = await getInquiriesCol();
 
-    // Total Users
-    const usersCount = await query(`SELECT COUNT(*) AS totalUsers FROM users`);
+    const ordersStatsAgg = await ordersCol
+      .aggregate([
+        {
+          $group: {
+            _id: null,
+            totalOrders: { $sum: 1 },
+            totalRevenue: { $sum: '$total' },
+            avgOrderValue: { $avg: '$total' },
+          },
+        },
+      ])
+      .toArray();
 
-    // Inquiries
-    const inquiriesStats = await query(
-      `SELECT 
-        COUNT(*) AS totalInquiries,
-        SUM(CASE WHEN status = 'new' OR status IS NULL THEN 1 ELSE 0 END) AS pendingInquiries
-       FROM contact_inquiries`
-    );
+    const ordersStats = ordersStatsAgg[0] || {
+      totalOrders: 0,
+      totalRevenue: 0,
+      avgOrderValue: 0,
+    };
 
-    // Orders Status Breakdown
-    const statusBreakdown = await query(
-      `SELECT status, COUNT(*) AS count FROM orders GROUP BY status`
-    );
-
-    // Recent 5 Orders
-    const recentOrdersRaw = await query(
-      `SELECT id, user_id, total, items, address, status, created_at 
-       FROM orders 
-       ORDER BY created_at DESC 
-       LIMIT 5`
-    );
-
-    const recentOrders = recentOrdersRaw.map(row => {
-      let items = [];
-      let address = null;
-      try {
-        items = typeof row.items === 'string' ? JSON.parse(row.items) : row.items || [];
-      } catch {}
-      try {
-        address = typeof row.address === 'string' ? JSON.parse(row.address) : row.address || null;
-      } catch {}
-      return {
-        id: row.id,
-        userId: row.user_id,
-        total: row.total,
-        status: row.status,
-        createdAt: row.created_at,
-        items,
-        address,
-      };
+    const totalUsers = await usersCol.countDocuments();
+    const totalInquiries = await inquiriesCol.countDocuments();
+    const pendingInquiries = await inquiriesCol.countDocuments({
+      $or: [{ status: 'new' }, { status: 'Received' }, { status: null }],
     });
 
+    const statusBreakdownAgg = await ordersCol
+      .aggregate([
+        {
+          $group: {
+            _id: '$status',
+            count: { $sum: 1 },
+          },
+        },
+      ])
+      .toArray();
+
+    const statusBreakdown = statusBreakdownAgg.reduce((acc, curr) => {
+      acc[curr._id || 'Confirmed'] = curr.count;
+      return acc;
+    }, {});
+
+    const recentOrdersRaw = await ordersCol
+      .find({})
+      .sort({ createdAt: -1 })
+      .limit(5)
+      .toArray();
+
+    const recentOrders = recentOrdersRaw.map(row => ({
+      id: row.id,
+      userId: row.userId,
+      total: row.total,
+      status: row.status,
+      createdAt: row.createdAt,
+      items: row.items || [],
+      address: row.address || null,
+    }));
+
     return res.json({
-      totalRevenue: Number(ordersStats[0]?.totalRevenue || 0),
-      totalOrders: Number(ordersStats[0]?.totalOrders || 0),
-      avgOrderValue: Math.round(Number(ordersStats[0]?.avgOrderValue || 0)),
-      totalUsers: Number(usersCount[0]?.totalUsers || 0),
-      totalInquiries: Number(inquiriesStats[0]?.totalInquiries || 0),
-      pendingInquiries: Number(inquiriesStats[0]?.pendingInquiries || 0),
-      statusBreakdown: statusBreakdown.reduce((acc, curr) => {
-        acc[curr.status || 'Confirmed'] = curr.count;
-        return acc;
-      }, {}),
+      totalRevenue: Number(ordersStats.totalRevenue || 0),
+      totalOrders: Number(ordersStats.totalOrders || 0),
+      avgOrderValue: Math.round(Number(ordersStats.avgOrderValue || 0)),
+      totalUsers: Number(totalUsers || 0),
+      totalInquiries: Number(totalInquiries || 0),
+      pendingInquiries: Number(pendingInquiries || 0),
+      statusBreakdown,
       recentOrders,
     });
   } catch (error) {
@@ -199,47 +211,35 @@ app.get('/api/stats', requireAdminAuth, async (req, res) => {
 app.get('/api/orders', requireAdminAuth, async (req, res) => {
   try {
     const { status, search } = req.query;
-    let sql = 'SELECT id, user_id, request_id, items, total, address, status, created_at FROM orders';
-    const params = [];
-    const conditions = [];
+    const filter = {};
 
     if (status && status !== 'all') {
-      conditions.push('status = ?');
-      params.push(status);
+      filter.status = status;
     }
 
     if (search && String(search).trim()) {
-      conditions.push('(id LIKE ? OR address LIKE ?)');
-      params.push(`%${search.trim()}%`, `%${search.trim()}%`);
+      const term = search.trim();
+      filter.$or = [
+        { id: { $regex: term, $options: 'i' } },
+        { 'address.name': { $regex: term, $options: 'i' } },
+        { 'address.email': { $regex: term, $options: 'i' } },
+        { 'address.city': { $regex: term, $options: 'i' } },
+      ];
     }
 
-    if (conditions.length > 0) {
-      sql += ' WHERE ' + conditions.join(' AND ');
-    }
+    const ordersCol = await getOrdersCol();
+    const rows = await ordersCol.find(filter).sort({ createdAt: -1 }).toArray();
 
-    sql += ' ORDER BY created_at DESC';
-
-    const rows = await query(sql, params);
-    const parsedOrders = rows.map(r => {
-      let items = [];
-      let address = null;
-      try {
-        items = typeof r.items === 'string' ? JSON.parse(r.items) : r.items || [];
-      } catch {}
-      try {
-        address = typeof r.address === 'string' ? JSON.parse(r.address) : r.address || null;
-      } catch {}
-      return {
-        id: r.id,
-        userId: r.user_id,
-        requestId: r.request_id,
-        total: r.total,
-        status: r.status,
-        createdAt: r.created_at,
-        items,
-        address,
-      };
-    });
+    const parsedOrders = rows.map(r => ({
+      id: r.id,
+      userId: r.userId,
+      requestId: r.requestId,
+      total: r.total,
+      status: r.status,
+      createdAt: r.createdAt,
+      items: r.items || [],
+      address: r.address || null,
+    }));
 
     return res.json({ orders: parsedOrders });
   } catch (error) {
@@ -256,7 +256,10 @@ app.patch('/api/orders/:id', requireAdminAuth, async (req, res) => {
       return res.status(400).json({ error: 'Status is required' });
     }
 
-    await query('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
+    const ordersCol = await getOrdersCol();
+    await ordersCol.updateOne({ id }, { $set: { status } });
+    console.log(`[MongoDB SUCCESS] Updated order ${id} status to: ${status}`);
+
     return res.json({ ok: true, id, status });
   } catch (error) {
     console.error('Order update error:', error);
@@ -271,27 +274,47 @@ app.patch('/api/orders/:id', requireAdminAuth, async (req, res) => {
 app.get('/api/users', requireAdminAuth, async (req, res) => {
   try {
     const { search } = req.query;
-    let sql = `
-      SELECT 
-        u.id, 
-        u.name, 
-        u.email, 
-        u.created_at,
-        COUNT(o.id) AS orderCount,
-        COALESCE(SUM(o.total), 0) AS totalSpent
-      FROM users u
-      LEFT JOIN orders o ON u.id = o.user_id
-    `;
-    const params = [];
+    const filter = {};
 
     if (search && String(search).trim()) {
-      sql += ' WHERE (u.name LIKE ? OR u.email LIKE ?)';
-      params.push(`%${search.trim()}%`, `%${search.trim()}%`);
+      const term = search.trim();
+      filter.$or = [
+        { name: { $regex: term, $options: 'i' } },
+        { email: { $regex: term, $options: 'i' } },
+      ];
     }
 
-    sql += ' GROUP BY u.id, u.name, u.email, u.created_at ORDER BY u.created_at DESC';
+    const usersCol = await getUsersCol();
+    const ordersCol = await getOrdersCol();
 
-    const users = await query(sql, params);
+    const usersList = await usersCol.find(filter).sort({ createdAt: -1 }).toArray();
+
+    const userOrdersAgg = await ordersCol
+      .aggregate([
+        {
+          $group: {
+            _id: '$userId',
+            orderCount: { $sum: 1 },
+            totalSpent: { $sum: '$total' },
+          },
+        },
+      ])
+      .toArray();
+
+    const statsMap = new Map(userOrdersAgg.map(u => [u._id, u]));
+
+    const users = usersList.map(u => {
+      const stats = statsMap.get(u.id) || { orderCount: 0, totalSpent: 0 };
+      return {
+        id: u.id,
+        name: u.name,
+        email: u.email,
+        created_at: u.createdAt,
+        orderCount: stats.orderCount,
+        totalSpent: stats.totalSpent,
+      };
+    });
+
     return res.json({ users });
   } catch (error) {
     console.error('Users error:', error);
@@ -306,33 +329,16 @@ app.get('/api/users', requireAdminAuth, async (req, res) => {
 app.get('/api/products', requireAdminAuth, async (req, res) => {
   try {
     const { category } = req.query;
-    let sql = 'SELECT id, name, category, price, color, data, created_at FROM products';
-    const params = [];
+    const filter = {};
 
     if (category && category !== 'All') {
-      sql += ' WHERE category = ?';
-      params.push(category);
+      filter.category = category;
     }
 
-    sql += ' ORDER BY id ASC';
-    const rows = await query(sql, params);
-    const parsed = rows.map(r => {
-      let extra = {};
-      try {
-        extra = typeof r.data === 'string' ? JSON.parse(r.data) : r.data || {};
-      } catch {}
-      return {
-        id: r.id,
-        name: r.name,
-        category: r.category,
-        price: r.price,
-        color: r.color,
-        createdAt: r.created_at,
-        ...extra,
-      };
-    });
+    const productsCol = await getProductsCol();
+    const rows = await productsCol.find(filter).sort({ id: 1 }).toArray();
 
-    return res.json({ products: parsed });
+    return res.json({ products: rows });
   } catch (error) {
     console.error('Products error:', error);
     return res.status(500).json({ error: 'Failed to fetch products' });
@@ -346,17 +352,25 @@ app.post('/api/products', requireAdminAuth, async (req, res) => {
       return res.status(400).json({ error: 'ID, name, category, and price are required' });
     }
 
-    const extraData = JSON.stringify({
+    const productsCol = await getProductsCol();
+    const existing = await productsCol.findOne({ id });
+    if (existing) {
+      return res.status(409).json({ error: 'Product with this ID already exists.' });
+    }
+
+    await productsCol.insertOne({
+      id,
+      name,
+      category,
+      price: Number(price),
+      color: color || 'Natural',
       sizes: sizes || ['S', 'M', 'L', 'XL'],
       description: description || '',
       image: image || '8350480',
+      createdAt: new Date().toISOString(),
     });
 
-    await query(
-      'INSERT INTO products (id, name, category, price, color, data) VALUES (?, ?, ?, ?, ?, ?)',
-      [id, name, category, Number(price), color || 'Natural', extraData]
-    );
-
+    console.log(`[MongoDB SUCCESS] Added product ${id} (${name})`);
     return res.status(201).json({ ok: true, id });
   } catch (error) {
     console.error('Create product error:', error);
@@ -369,17 +383,24 @@ app.put('/api/products/:id', requireAdminAuth, async (req, res) => {
     const { id } = req.params;
     const { name, category, price, color, sizes, description, image } = req.body;
 
-    const extraData = JSON.stringify({
-      sizes: sizes || ['S', 'M', 'L', 'XL'],
-      description: description || '',
-      image: image || '8350480',
-    });
-
-    await query(
-      'UPDATE products SET name = ?, category = ?, price = ?, color = ?, data = ? WHERE id = ?',
-      [name, category, Number(price), color, extraData, id]
+    const productsCol = await getProductsCol();
+    await productsCol.updateOne(
+      { id },
+      {
+        $set: {
+          name,
+          category,
+          price: Number(price),
+          color: color || 'Natural',
+          sizes: sizes || ['S', 'M', 'L', 'XL'],
+          description: description || '',
+          image: image || '8350480',
+          updatedAt: new Date().toISOString(),
+        },
+      }
     );
 
+    console.log(`[MongoDB SUCCESS] Updated product ${id}`);
     return res.json({ ok: true, id });
   } catch (error) {
     console.error('Update product error:', error);
@@ -390,7 +411,9 @@ app.put('/api/products/:id', requireAdminAuth, async (req, res) => {
 app.delete('/api/products/:id', requireAdminAuth, async (req, res) => {
   try {
     const { id } = req.params;
-    await query('DELETE FROM products WHERE id = ?', [id]);
+    const productsCol = await getProductsCol();
+    await productsCol.deleteOne({ id });
+    console.log(`[MongoDB SUCCESS] Deleted product ${id}`);
     return res.json({ ok: true, id });
   } catch (error) {
     console.error('Delete product error:', error);
@@ -405,16 +428,15 @@ app.delete('/api/products/:id', requireAdminAuth, async (req, res) => {
 app.get('/api/inquiries', requireAdminAuth, async (req, res) => {
   try {
     const { status } = req.query;
-    let sql = 'SELECT id, user_id, name, email, phone, subject, order_id, message, status, created_at FROM contact_inquiries';
-    const params = [];
+    const filter = {};
 
     if (status && status !== 'all') {
-      sql += ' WHERE status = ?';
-      params.push(status);
+      filter.status = status;
     }
 
-    sql += ' ORDER BY created_at DESC';
-    const inquiries = await query(sql, params);
+    const inquiriesCol = await getInquiriesCol();
+    const inquiries = await inquiriesCol.find(filter).sort({ createdAt: -1 }).toArray();
+
     return res.json({ inquiries });
   } catch (error) {
     console.error('Inquiries error:', error);
@@ -430,7 +452,10 @@ app.patch('/api/inquiries/:id', requireAdminAuth, async (req, res) => {
       return res.status(400).json({ error: 'Status is required' });
     }
 
-    await query('UPDATE contact_inquiries SET status = ? WHERE id = ?', [status, id]);
+    const inquiriesCol = await getInquiriesCol();
+    await inquiriesCol.updateOne({ id }, { $set: { status } });
+    console.log(`[MongoDB SUCCESS] Updated inquiry ${id} status to: ${status}`);
+
     return res.json({ ok: true, id, status });
   } catch (error) {
     console.error('Inquiry update error:', error);
@@ -439,10 +464,256 @@ app.patch('/api/inquiries/:id', requireAdminAuth, async (req, res) => {
 });
 
 // ==========================================
-// 7. VITE DEV SERVER / PRODUCTION SERVING
+// 7. STOREFRONT BACKEND API (MONGODB UNIFIED ACCESS)
+// ==========================================
+
+app.get('/api/backend/products', async (req, res) => {
+  try {
+    const productsCol = await getProductsCol();
+    const products = await productsCol.find({}).sort({ id: 1 }).toArray();
+    return res.json({ products });
+  } catch (err) {
+    console.error('Backend products error:', err);
+    return res.status(500).json({ error: 'Failed to fetch products' });
+  }
+});
+
+app.get('/api/backend/store-data', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.json({ bag: [], wishlist: [], orders: [] });
+
+    const bagCol = await getBagCol();
+    const wishlistCol = await getWishlistCol();
+    const ordersCol = await getOrdersCol();
+
+    const [bag, wishlist, orders] = await Promise.all([
+      bagCol.find({ userId }).toArray(),
+      wishlistCol.find({ userId }).toArray(),
+      ordersCol.find({ userId }).sort({ createdAt: -1 }).limit(30).toArray(),
+    ]);
+
+    return res.json({
+      bag: bag.map(b => ({ productId: b.productId, size: b.size, quantity: b.quantity })),
+      wishlist: wishlist.map(w => w.productId),
+      orders: orders.map(o => ({
+        id: o.id,
+        items: o.items || [],
+        total: Number(o.total) || 0,
+        address: o.address || null,
+        status: o.status || 'Confirmed',
+        createdAt: o.createdAt,
+      })),
+    });
+  } catch (err) {
+    console.error('Backend store-data error:', err);
+    return res.status(500).json({ error: 'Failed to load store data' });
+  }
+});
+
+app.post('/api/backend/bag', async (req, res) => {
+  try {
+    const { userId, productId, size, quantity } = req.body;
+    const bagCol = await getBagCol();
+
+    if (quantity <= 0) {
+      await bagCol.deleteOne({ userId, productId, size });
+    } else {
+      await bagCol.updateOne(
+        { userId, productId, size },
+        { $set: { userId, productId, size, quantity } },
+        { upsert: true }
+      );
+    }
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Backend bag error:', err);
+    return res.status(500).json({ error: 'Failed to update bag' });
+  }
+});
+
+app.post('/api/backend/wishlist', async (req, res) => {
+  try {
+    const { userId, productId, saved } = req.body;
+    const wishlistCol = await getWishlistCol();
+
+    if (saved) {
+      await wishlistCol.updateOne(
+        { userId, productId },
+        { $set: { userId, productId } },
+        { upsert: true }
+      );
+    } else {
+      await wishlistCol.deleteOne({ userId, productId });
+    }
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Backend wishlist error:', err);
+    return res.status(500).json({ error: 'Failed to update wishlist' });
+  }
+});
+
+app.post('/api/backend/orders', async (req, res) => {
+  try {
+    const { id, userId, requestId, items, total, address, status, createdAt } = req.body;
+    const ordersCol = await getOrdersCol();
+    const bagCol = await getBagCol();
+
+    const prior = await ordersCol.findOne({ requestId, userId });
+    if (prior) {
+      return res.json({ order: prior });
+    }
+
+    const orderDoc = {
+      id,
+      userId,
+      requestId,
+      items,
+      total,
+      address,
+      status: status || 'Confirmed',
+      createdAt,
+    };
+
+    await ordersCol.insertOne(orderDoc);
+    await bagCol.deleteMany({ userId });
+
+    console.log(`[MongoDB SUCCESS] Registered customer order ${id} for ${userId} (₹${total})`);
+    return res.json({ ok: true, order: orderDoc });
+  } catch (err) {
+    console.error('Backend order error:', err);
+    return res.status(500).json({ error: 'Failed to create order' });
+  }
+});
+
+app.post('/api/backend/auth/register', async (req, res) => {
+  try {
+    const { id, name, email, passwordHash, createdAt, sessionId, expiresAt } = req.body;
+    const usersCol = await getUsersCol();
+    const sessionsCol = await getSessionsCol();
+
+    const existing = await usersCol.findOne({ email });
+    if (existing) {
+      return res.status(409).json({ error: 'An account with this email already exists.' });
+    }
+
+    await usersCol.insertOne({ id, name, email, passwordHash, createdAt });
+    await sessionsCol.insertOne({ id: sessionId, userId: id, createdAt, expiresAt });
+
+    console.log(`[MongoDB SUCCESS] Registered new user in MongoDB: ${email} (${id})`);
+    return res.status(201).json({ ok: true, user: { userId: id, displayName: name, email } });
+  } catch (err) {
+    console.error('Backend register error:', err);
+    return res.status(500).json({ error: 'Registration failed' });
+  }
+});
+
+app.post('/api/backend/auth/login', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const usersCol = await getUsersCol();
+    const user = await usersCol.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.json({ user });
+  } catch (err) {
+    console.error('Backend login check error:', err);
+    return res.status(500).json({ error: 'User check failed' });
+  }
+});
+
+app.post('/api/backend/auth/session', async (req, res) => {
+  try {
+    const { sessionId, userId, createdAt, expiresAt } = req.body;
+    const sessionsCol = await getSessionsCol();
+    await sessionsCol.insertOne({ id: sessionId, userId, createdAt, expiresAt });
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Backend session error:', err);
+    return res.status(500).json({ error: 'Session creation failed' });
+  }
+});
+
+app.get('/api/backend/auth/session', async (req, res) => {
+  try {
+    const { sessionId } = req.query;
+    if (!sessionId) return res.json({ user: null });
+
+    const sessionsCol = await getSessionsCol();
+    const usersCol = await getUsersCol();
+    const nowIso = new Date().toISOString();
+
+    const session = await sessionsCol.findOne({
+      id: sessionId,
+      expiresAt: { $gt: nowIso },
+    });
+
+    if (session && session.userId) {
+      const user = await usersCol.findOne({ id: session.userId });
+      if (user) {
+        return res.json({
+          user: {
+            userId: user.id,
+            displayName: user.name,
+            email: user.email,
+          },
+        });
+      }
+    }
+    return res.json({ user: null });
+  } catch (err) {
+    console.error('Backend session fetch error:', err);
+    return res.json({ user: null });
+  }
+});
+
+app.delete('/api/backend/auth/session', async (req, res) => {
+  try {
+    const { sessionId } = req.query;
+    if (sessionId) {
+      const sessionsCol = await getSessionsCol();
+      await sessionsCol.deleteOne({ id: sessionId });
+    }
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Backend session delete error:', err);
+    return res.status(500).json({ error: 'Failed to delete session' });
+  }
+});
+
+app.post('/api/backend/contact', async (req, res) => {
+  try {
+    const inquiry = req.body;
+    const inquiriesCol = await getInquiriesCol();
+    await inquiriesCol.insertOne(inquiry);
+    console.log(`[MongoDB SUCCESS] Customer inquiry recorded: ${inquiry.id}`);
+    return res.status(201).json({ ok: true, id: inquiry.id });
+  } catch (err) {
+    console.error('Backend contact save error:', err);
+    return res.status(500).json({ error: 'Failed to record inquiry' });
+  }
+});
+
+app.get('/api/backend/contact', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    if (!userId) return res.json({ inquiries: [] });
+    const inquiriesCol = await getInquiriesCol();
+    const inquiries = await inquiriesCol.find({ userId }).sort({ createdAt: -1 }).limit(20).toArray();
+    return res.json({ inquiries });
+  } catch (err) {
+    console.error('Backend contact fetch error:', err);
+    return res.status(500).json({ error: 'Failed to load inquiries' });
+  }
+});
+
+// ==========================================
+// 8. VITE DEV SERVER / PRODUCTION SERVING
 // ==========================================
 
 async function startServer() {
+  await ensureIndexes();
   const isProd = process.env.NODE_ENV === 'production';
 
   if (!isProd) {
@@ -463,7 +734,7 @@ async function startServer() {
     console.log(`🛡️  WESTWARD ATELIER — REALTIME EXECUTIVE ADMIN PANEL`);
     console.log(`🌐  Local URL:        http://localhost:${PORT}`);
     console.log(`🔐  Admin PIN:        ${process.env.ADMIN_PIN ? 'Custom PIN loaded from .env' : 'Configured via .env'}`);
-    console.log(`💾  Connected DB:     ${process.env.DB_NAME || 'westward_db'} on ${process.env.DB_HOST || '127.0.0.1'}`);
+    console.log(`🍃  Connected DB:     MongoDB (${process.env.DB_NAME || 'westward_db'})`);
     console.log(`======================================================\n`);
   });
 }
